@@ -283,7 +283,7 @@ if __name__ == '__main__':
         files = sys.argv[1:]
 
     for path in files:
-        out_path = path.replace('.jpg', '.crop.jpg')
+        out_path = path.replace('.jpg', 'crop.jpg')
         if os.path.exists(out_path): continue
         try:
             process_image(path, out_path)
