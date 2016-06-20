@@ -116,7 +116,7 @@ try:
 	for no in newlist:
 		if ma<sum(c.isdigit() for c in no):
 			ma = sum(c.isdigit() for c in no)
-			uid = no
+			uid = int(filter(str.isdigit, no))
 except:
 	pass
 	
