@@ -1,0 +1,26 @@
+URL:
+http://14.141.204.73/EmployeeProfile360/CustomerApp.svc/Get_Aadhar_OTP
+
+Parameters: 
+[{"AadharNumber":"824442571559"}]
+
+Response:
+ {"Get_Aadhar_OTPResult":"{\"Master_Tag\":{\"Table\" : [{\"Status\" : \"Success\"}]}}"}
+
+
+
+
+
+URL:
+http://14.141.204.73/EmployeeProfile360/CustomerApp.svc/GetEKYC_InstaApproval
+
+Parameters: 
+[{"AadharNumber":"824442571559","OTP":"138574"}]
+
+
+
+Response :
+{"GetEKYC_InstaApprovalResult":"[\"Nikhil Dharmesh Agrawal\",\"\",\"8624057415\",\"J - 024, Forest County Near EON IT Park Pune City Pune City\",\" Pune\",\"Pune City\",\"Maharashtra\",\"411014\",\"nikhil.agrawal005@gmail.com\",\"23-01-1993\"]"}
+
+
+
