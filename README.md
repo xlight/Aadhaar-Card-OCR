@@ -1,6 +1,6 @@
 This document for OCR
 
-![Alt text](AadhaarCardOCR.jpg?raw=true "Aadhaar Card image")
+![Aadhaar to JSON](AadhaarCardOCR.jpg?raw=true "Aadhaar Card image")
 
 *****************************************************
 *Problem:
