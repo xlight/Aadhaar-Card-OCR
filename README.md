@@ -3,17 +3,15 @@ This document for OCR
 ![Aadhaar to JSON](AadhaarCardOCR.jpg?raw=true "Aadhaar Card image")
 
 *****************************************************
-*Problem:
+Problem:
 *****************************************************
 	Extract information from image of Aadhaar Card by OCR in proper format.
 		Imformation like - 
 					Name, Year of Birth, Gender, UID
-*****************************************************
-
 
 
 *****************************************************
-*Solution:
+Solution:
 *****************************************************
 	Steps:
 		-> Take image
@@ -26,12 +24,10 @@ This document for OCR
 		-> find gender
 		-> find year of birth
 		-> find for Aadhar ID(UID)
-*****************************************************
-
-
+	for verfication please see aadhar_detail.txt file
 	
 *****************************************************
-*Dependent packages
+Dependent packages
 *****************************************************
 	-python
 	-opencv
@@ -43,12 +39,10 @@ This document for OCR
 	-PIL
 	-SciPy
 	-dataparser
-*****************************************************		
-
 
 
 *****************************************************
-*Structure and Usage
+Structure and Usage
 *****************************************************
 	Directories:
 		src-
@@ -61,4 +55,5 @@ This document for OCR
 	Usage:
 		python file_name.py [input image]
 		Output will be JSON object name
-*****************************************************
+
+:sunglasses:
