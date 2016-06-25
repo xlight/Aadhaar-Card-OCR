@@ -86,11 +86,11 @@ try:
 except:
 	pass
 
-# Open name database
-with open('dummy.csv', 'rb') as f:
+#-----------Read Database
+with open('namedb.csv', 'rb') as f:
 	reader = csv.reader(f)
 	newlist = list(reader)    
-[item for newlist in newlist for item in newlist]
+newlist = sum(newlist, [])
 
 # Searching for Name and finding closest name in database
 try:
