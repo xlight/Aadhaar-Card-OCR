@@ -84,7 +84,6 @@ with open('namedb1.csv', 'rb') as f:
 	newlist = list(reader)    
 newlist = sum(newlist, [])
 #'''
-
 '''
 #-----------Read Database
 with open('namedb.csv', 'rb') as f:
