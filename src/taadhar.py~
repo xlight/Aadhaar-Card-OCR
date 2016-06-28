@@ -45,15 +45,19 @@ lines = text
 print lines
 for wordlist in lines.split('\n'):
 	xx = wordlist.split( )
-	if ([w for w in xx if re.search('(Year|ear|Birth|irth|YoB)$', w)]):
+	if ([w for w in xx if re.search('(Year|Birth|irth|YoB|YOB:|DOB:|DOB)$', w)]):
 		yearline = wordlist
 		break
 	else:
 		text1.append(wordlist)
 try:
-	yearline = re.split('Year|Birth|irth|YoB', yearline)[1:]
-	yearline = ''.join(str(e) for e in yearline)
+	text2 = text.split(yearline,1)[1]
+except:
+	pass
 
+try:
+	yearline = re.split('Year|Birth|irth|YoB|YOB:|DOB:|DOB', yearline)[1:]
+	yearline = ''.join(str(e) for e in yearline)
 	if(yearline):
 		ayear = dparser.parse(yearline,fuzzy=True).year
 except:
@@ -63,7 +67,7 @@ except:
 try:
 	for wordlist in lines.split('\n'):
 		xx = wordlist.split( )
-		if ([w for w in xx if re.search('(Female|Male|emale|male|ale)$', w)]):
+		if ([w for w in xx if re.search('(Female|Male|emale|male|ale|FEMALE|MALE|EMALE)$', w)]):
 			genline = wordlist
 			break
 
@@ -84,6 +88,7 @@ with open('namedb1.csv', 'rb') as f:
 	newlist = list(reader)    
 newlist = sum(newlist, [])
 #'''
+
 '''
 #-----------Read Database
 with open('namedb.csv', 'rb') as f:
@@ -92,7 +97,6 @@ with open('namedb.csv', 'rb') as f:
 newlist = sum(newlist, [])
 #'''
 
-print "--------------------=========+++++++++++++++++++++"
 # Searching for Name and finding closest name in database
 try:
 	text1 = filter(None, text1)
@@ -100,12 +104,10 @@ try:
 		for y in x.split( ):
 			if(difflib.get_close_matches(y.upper(), newlist)):
 				nameline.append(x)
-				print x
 				break
 	name = ''.join(str(e) for e in nameline)
 except:
 	pass
-
 
 # Searching for UID
 try:
@@ -137,9 +139,9 @@ with open('../result/'+ os.path.basename(sys.argv[1]).split('.')[0] +'.json', 'w
 # Removing dummy files
 os.remove('temp.jpg')
 
-'''
+
 # Reading data back JSON
-with open('../result/'+sys.argv[1]+'.json', 'r') as f:
+with open('../result/'+ os.path.basename(sys.argv[1]).split('.')[0] +'.json', 'r') as f:
      ndata = json.load(f)
 
 print "+++++++++++++++++++++++++++++++"     
