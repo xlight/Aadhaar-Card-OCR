@@ -81,7 +81,6 @@ try:
 except:
 	pass
 
-
 #-----------Read Database
 with open('namedb1.csv', 'rb') as f:
 	reader = csv.reader(f)
