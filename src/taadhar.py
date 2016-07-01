@@ -138,7 +138,7 @@ with open('../result/'+ os.path.basename(sys.argv[1]).split('.')[0] +'.json', 'w
 # Removing dummy files
 os.remove('temp.jpg')
 
-'''
+
 # Reading data back JSON
 with open('../result/'+ os.path.basename(sys.argv[1]).split('.')[0] +'.json', 'r') as f:
      ndata = json.load(f)

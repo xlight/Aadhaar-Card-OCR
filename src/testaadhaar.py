@@ -10,11 +10,13 @@ import difflib
 import csv
 import nltk
 import dateutil.parser as dparser
+from dateutil.parser import _timelex, parser
 from PIL import Image, ImageEnhance, ImageFilter
 path = sys.argv[1]
 
 img = Image.open(path)
 img = img.convert('RGBA')
+#img = img.filter(ImageFilter.SHARPEN)
 pix = img.load()
 
 for y in range(img.size[1]):
@@ -25,7 +27,7 @@ for y in range(img.size[1]):
             pix[x, y] = (255, 255, 255, 255)
 
 img.save('temp.jpg')
-
+'''
 w,h=img.size
 e=int(0.2*w)
 f=int(0.65*h)
@@ -34,7 +36,7 @@ f1=int(0.9*h)
 img.crop((e,f,e1,f1)).save('img3.jpg')
 texttest = pytesseract.image_to_string(Image.open('img3.jpg'))
 print(texttest)
-
+#'''
 text = pytesseract.image_to_string(Image.open('temp.jpg'))
 text = filter(lambda x: ord(x)<128,text)
 
@@ -52,14 +54,15 @@ text2 = []
 
 # Searching for Year of Birth
 lines = text
-#print lines
-tokens = nltk.word_tokenize(lines)
+print lines
+#tokens = nltk.word_tokenize(lines)
 #sentences = nltk.sent_tokenize(lines)
 #sentences = [nltk.word_tokenize(sent) for sent in sentences]
 #sentences = [nltk.pos_tag(sent) for sent in sentences]
 #print sentences
 #print "_________________"
 #print tokens
+
 for wordlist in lines.split('\n'):
 	xx = wordlist.split( )
 	if ([w for w in xx if re.search('(Year|Birth|irth|YoB|YOB:|DOB:|DOB)$', w)]):
@@ -79,7 +82,40 @@ try:
 		ayear = dparser.parse(yearline,fuzzy=True).year
 except:
 	pass
-	
+#------------------------------------------------------	
+try:
+	p = parser()
+	info = p.info
+
+	def timetoken(token):
+	  try:
+		float(token)
+		return True
+	  except ValueError:
+		pass
+	  return any(f(token) for f in (info.jump,info.weekday,info.month,info.hms,info.ampm,info.pertain,info.utczone,info.tzoffset))
+
+	def timesplit(input_string):
+	  batch = []
+	  for token in _timelex(input_string):
+		if timetoken(token):
+		  if info.jump(token):
+		    continue
+		  batch.append(token)
+		else:
+		  if batch:
+		    yield " ".join(batch)
+		    batch = []
+	  if batch:
+		yield " ".join(batch)
+
+	for item in timesplit(yearline):
+	  print "Found:", item
+	  print "Parsed:", p.parse(item)
+except:
+	pass
+#-----------------------------------------------------------
+
 # Searching for Gender
 try:
 	for wordlist in lines.split('\n'):
@@ -146,7 +182,7 @@ data['Name'] = name
 data['Gender'] = gender
 data['Birth year'] = ayear
 data['Uid'] = uid
-
+'''
 # Writing data into JSON
 with open('../result/'+ os.path.basename(sys.argv[1]).split('.')[0] +'.json', 'w') as fp:
     json.dump(data, fp)
@@ -159,14 +195,14 @@ os.remove('temp.jpg')
 # Reading data back JSON
 with open('../result/'+ os.path.basename(sys.argv[1]).split('.')[0] +'.json', 'r') as f:
      ndata = json.load(f)
-
+#'''
 print "+++++++++++++++++++++++++++++++"     
-print(ndata['Name'])
+print(data['Name'])
 print "-------------------------------"
-print(ndata['Gender'])
+print(data['Gender'])
 print "-------------------------------"
-print(ndata['Birth year'])
+print(data['Birth year'])
 print "-------------------------------"
-print(ndata['Uid'])
+print(data['Uid'])
 print "-------------------------------"
 #'''
