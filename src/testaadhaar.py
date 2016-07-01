@@ -8,6 +8,7 @@ import pytesseract
 import re
 import difflib
 import csv
+import nltk
 import dateutil.parser as dparser
 from PIL import Image, ImageEnhance, ImageFilter
 path = sys.argv[1]
@@ -24,6 +25,15 @@ for y in range(img.size[1]):
             pix[x, y] = (255, 255, 255, 255)
 
 img.save('temp.jpg')
+
+w,h=img.size
+e=int(0.2*w)
+f=int(0.65*h)
+e1=int(0.72*w)
+f1=int(0.9*h)
+img.crop((e,f,e1,f1)).save('img3.jpg')
+texttest = pytesseract.image_to_string(Image.open('img3.jpg'))
+print(texttest)
 
 text = pytesseract.image_to_string(Image.open('temp.jpg'))
 text = filter(lambda x: ord(x)<128,text)
@@ -43,6 +53,13 @@ text2 = []
 # Searching for Year of Birth
 lines = text
 #print lines
+tokens = nltk.word_tokenize(lines)
+#sentences = nltk.sent_tokenize(lines)
+#sentences = [nltk.word_tokenize(sent) for sent in sentences]
+#sentences = [nltk.pos_tag(sent) for sent in sentences]
+#print sentences
+#print "_________________"
+#print tokens
 for wordlist in lines.split('\n'):
 	xx = wordlist.split( )
 	if ([w for w in xx if re.search('(Year|Birth|irth|YoB|YOB:|DOB:|DOB)$', w)]):
@@ -122,7 +139,7 @@ try:
 			uid = int(filter(str.isdigit, no))
 except:
 	pass
-	
+
 # Making tuples of data
 data = {}
 data['Name'] = name
@@ -138,7 +155,7 @@ with open('../result/'+ os.path.basename(sys.argv[1]).split('.')[0] +'.json', 'w
 # Removing dummy files
 os.remove('temp.jpg')
 
-'''
+
 # Reading data back JSON
 with open('../result/'+ os.path.basename(sys.argv[1]).split('.')[0] +'.json', 'r') as f:
      ndata = json.load(f)
