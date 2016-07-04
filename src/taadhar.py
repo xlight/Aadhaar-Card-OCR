@@ -42,7 +42,7 @@ text2 = []
 
 # Searching for Year of Birth
 lines = text
-#print lines
+print lines
 for wordlist in lines.split('\n'):
 	xx = wordlist.split( )
 	if ([w for w in xx if re.search('(Year|Birth|irth|YoB|YOB:|DOB:|DOB)$', w)]):
