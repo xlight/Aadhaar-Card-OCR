@@ -39,12 +39,15 @@ texttest = pytesseract.image_to_string(Image.open('img3.jpg'))
 print(texttest)
 #'''
 #text = pytesseract.image_to_string(Image.open('temp.jpg'))
-subprocess.call("tesseract temp.jpg out", shell=True)
+subprocess.call("tesseract "+path+" out -4", shell=True)
+subprocess.call("tesseract temp.jpg out1 -4", shell=True)
 fi = open('out.txt', 'r')
 text = fi.read()
+fitemp = open('out1.txt', 'r')
+texttemp = fitemp.read()
 
 text = filter(lambda x: ord(x)<128,text)
-
+texttemp = filter(lambda x: ord(x)<128,texttemp)
 
 # Initializing data variable
 name = None
@@ -56,6 +59,17 @@ genline = []
 nameline = []
 text1 = []
 text2 = []
+
+name1 = None
+gender1 = None
+ayear1 = None
+uid1 = None
+yearline1 = []
+genline1 = []
+nameline1 = []
+text11 = []
+text21 = []
+
 
 # Searching for Year of Birth
 lines = text
@@ -193,12 +207,12 @@ data['Uid'] = uid
 # Writing data into JSON
 with open('../result/'+ os.path.basename(sys.argv[1]).split('.')[0] +'.json', 'w') as fp:
     json.dump(data, fp)
-
+'''
 
 # Removing dummy files
 os.remove('temp.jpg')
 
-
+'''
 # Reading data back JSON
 with open('../result/'+ os.path.basename(sys.argv[1]).split('.')[0] +'.json', 'r') as f:
      ndata = json.load(f)

@@ -39,12 +39,15 @@ texttest = pytesseract.image_to_string(Image.open('img3.jpg'))
 print(texttest)
 #'''
 #text = pytesseract.image_to_string(Image.open('temp.jpg'))
-subprocess.call("tesseract temp.jpg out", shell=True)
+subprocess.call("tesseract "+path+" out -4", shell=True)
+subprocess.call("tesseract temp.jpg out1 -4", shell=True)
 fi = open('out.txt', 'r')
 text = fi.read()
+fitemp = open('out1.txt', 'r')
+texttemp = fitemp.read()
 
 text = filter(lambda x: ord(x)<128,text)
-
+texttemp = filter(lambda x: ord(x)<128,texttemp)
 
 # Initializing data variable
 name = None
@@ -193,12 +196,12 @@ data['Uid'] = uid
 # Writing data into JSON
 with open('../result/'+ os.path.basename(sys.argv[1]).split('.')[0] +'.json', 'w') as fp:
     json.dump(data, fp)
-
+'''
 
 # Removing dummy files
 os.remove('temp.jpg')
 
-
+'''
 # Reading data back JSON
 with open('../result/'+ os.path.basename(sys.argv[1]).split('.')[0] +'.json', 'r') as f:
      ndata = json.load(f)
